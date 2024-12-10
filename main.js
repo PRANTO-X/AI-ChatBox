@@ -5,6 +5,18 @@ let chatWrapper  = document.querySelector('.chat-wrapper');
 let themeBtn = document.querySelector('.theme-btn');
 
 
+let header = document.querySelector('.header'); // Assuming your header has a class 'header'
+let typingContainer = document.querySelector('.typing-container'); // Typing container
+let firstMessageSent = false; // Flag to track the first message
+
+
+// Show header
+window.addEventListener('load', () => {
+    header.style.display = 'block';
+    scrollBottom();
+});
+
+
 // Function for scroll
 let scrollBottom = () => {
     chatWrapper.scrollTo({
@@ -85,6 +97,12 @@ let incomingChat = async (userMessage) => {
 let outgoingChat = () => {
     let userMessage = chatInput.value.trim();
     if (userMessage === "") return;
+
+    // Hide header
+    if (!firstMessageSent) {
+        header.style.display = 'none';
+        firstMessageSent = true; 
+    }
 
     // Disable the send button
     sendBtn.setAttribute("disabled", "true");
